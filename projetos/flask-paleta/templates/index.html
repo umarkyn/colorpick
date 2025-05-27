@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR"> <!-- coloquei pt-BR, já que seu texto está em português -->
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Paleta de Cores</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='paleta.css') }}?v={{ versao_css }}" />
+</head>
+<body>
+    <header id="header">
+        <div id="box">
+            <h1 id="Logo">Colorpick</h1> <!-- coloquei h1 porque é o título principal do cabeçalho -->
+            <nav>
+                <ul id="list">
+                    <li class="item"><a href="#">Suporte</a></li> <!-- Corrigi typo "suport" -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div id="caixa">
+            <h2 class="pick">Pick</h2> <h2 id="second"> the main <br> colors of a image
+        </h2>
+        </div>
+        <div id="caixa-ancora">
+        <a href="#main" id="ancora">view colors</a>
+        </div>
+
+    </section>
+
+    <main id="main">
+        <h2 id="send">Send your image</h2>
+
+        <form id="form" action="/upload" method="POST" enctype="multipart/form-data">
+            <input id="inputa" type="file" name="foto" accept="image/*" required />
+            <input type="submit" value="Enviar" />
+        </form>
+
+        {% if caminho %}
+            <section>
+                <h2>Imagem enviada:</h2>
+                <img id="fotinho" src="{{ caminho }}" alt="Imagem enviada pelo usuário" />
+            </section>
+        {% endif %}
+
+        {% if cores %}
+            <section>
+                <h2>Paleta gerada:</h2>
+                <div id="paleta">
+                    {% for i in cores %}
+                        <div class="bloco cor-{{ i }}"></div>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+    </main>
+</body>
+</html>
